@@ -1,10 +1,10 @@
 <template>
 <div class="user-table-row">
-    <div class="table-row-instance" 
+    <div class="table-row-instance"
     :class="labelClasses"
      @click="toggleChildren">
-        <div 
-        class='children-elements-icon' 
+        <div
+        class='children-elements-icon'
         :class="iconClasses"
         v-if="usersAccountable.length"
         :style="indentToggleIcon">{{ toggleChildrenText }}</div>
@@ -18,7 +18,7 @@
           :index="user.id"
           :name="user.name"
           :phone-number="user.phoneNumber"
-          :depth="depth + 1"   
+          :depth="depth + 1"
           :key="user.id"
       />
     </div>
@@ -26,54 +26,52 @@
 </template>
 
 <script>
-import UserTableRow from '@/components/UserTableRow'
+import UserTableRow from '@/components/UserTableRow';
 
 export default {
   name: 'UserTableRow',
-  props: [ 'users', 'index', 'name', 'phone-number', 'depth' ],
+  props: ['users', 'index', 'name', 'phone-number', 'depth'],
   components: {
-      UserTableRow
-      },
+    UserTableRow,
+  },
   data() {
-     return {
-       showChildren: false
-     }
+    return {
+      showChildren: false,
+    };
   },
   computed: {
-    usersAccountable(){
-        let index = this.index
-        return this.users.filter(function(obj) {
-            return obj.superior === index
-          });
+    usersAccountable() {
+      const index = this.index;
+      return this.users.filter(obj => obj.superior === index);
     },
     iconClasses() {
       return {
         'children-elements-open': !this.showChildren,
-        'children-elements-closed': this.showChildren
-      }
+        'children-elements-closed': this.showChildren,
+      };
     },
     labelClasses() {
-      return { 'has-children': this.usersAccountable.length }
+      return { 'has-children': this.usersAccountable.length };
     },
-    indent(){
-      return 50*(1/(this.depth+1)**0.15)
+    indent() {
+      return 50 * (1 / ((this.depth + 1) ** 0.15));
     },
     indentName() {
-      return { flexBasis: `${this.indent}%` }
+      return { flexBasis: `${this.indent}%` };
     },
     indentToggleIcon() {
-      return { left: `calc(10px + 50% - ${this.indent}%)` }
+      return { left: `calc(10px + 50% - ${this.indent}%)` };
     },
-    toggleChildrenText(){
-        return this.showChildren ? "-" : this.usersAccountable.length
-    }
+    toggleChildrenText() {
+      return this.showChildren ? '-' : this.usersAccountable.length;
+    },
   },
   methods: {
     toggleChildren() {
-       this.showChildren = !this.showChildren;
+      this.showChildren = !this.showChildren;
     },
 
-  }
+  },
 };
 </script>
 

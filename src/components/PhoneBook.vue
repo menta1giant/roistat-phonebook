@@ -6,39 +6,40 @@
 </template>
 
 <script>
-import UserForm from '@/components/UserForm'
-import TableDisplay from '@/components/TableDisplay'
+import UserForm from '@/components/UserForm';
+import TableDisplay from '@/components/TableDisplay';
 
- export default{
-  name:'PhoneBook',
-  data (){
-   return {
-        users: JSON.parse(localStorage.getItem("users")) || [],
-        formVisible: false,
-    }
+export default{
+  name: 'PhoneBook',
+  data() {
+    return {
+      users: JSON.parse(localStorage.getItem('users')) || [],
+      formVisible: false,
+    };
   },
-  components:{
-      UserForm,TableDisplay
+  components: {
+    UserForm, TableDisplay,
   },
   methods: {
     addUser(user) {
-        user.id = this.lowestAvailableId;
-        this.users.push(user)
-        localStorage.setItem('users', JSON.stringify(this.users));
-        this.formVisible = false
+      const newUser = user;
+      newUser.id = this.lowestAvailableId;
+      this.users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(this.users));
+      this.formVisible = false;
     },
 
     displayForm() {
-        this.formVisible = true
+      this.formVisible = true;
     },
 
   },
   computed: {
-      lowestAvailableId(){
-          return this.users.length ? this.users.concat().sort(function(a,b){return b.id-a.id})[0].id+1 : 0
-      },
-  }
- }
+    lowestAvailableId() {
+      return this.users.length ? this.users.concat().sort((a, b) => b.id - a.id)[0].id + 1 : 0;
+    },
+  },
+};
 </script>
 
 <style>

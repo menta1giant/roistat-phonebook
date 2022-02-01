@@ -1,7 +1,7 @@
 <template>
   <div class="table-display">
-      <button 
-          class="button" 
+      <button
+          class="button"
           v-on:click="requestForm">
           Добавить
       </button>
@@ -10,51 +10,49 @@
           <div @click="sortUsers('phoneNumber')">Телефон</div>
       </div>
       <div class="table-body">
-          <UserTableRow 
+          <UserTableRow
           v-for="user in topUsers"
           :users="users"
           :index="user.id"
           :name="user.name"
           :phone-number="user.phoneNumber"
-          :depth="0"  
+          :depth="0"
           :key="user.id"/>
       </div>
   </div>
 </template>
 
 <script>
-import UserTableRow from '@/components/UserTableRow'
+import UserTableRow from '@/components/UserTableRow';
 
 export default {
   name: 'TableDisplay',
-  props: [ 'users' ],
+  props: ['users'],
   components: {
-      UserTableRow
-      },
+    UserTableRow,
+  },
   data() {
-     return {
-       showChildren: false
-     }
+    return {
+      showChildren: false,
+    };
   },
   computed: {
-    topUsers(){
-      return this.users.filter(function(obj) {
-          return obj.superior===""
-        });
-    }
+    topUsers() {
+      return this.users.filter(obj => obj.superior === '');
+    },
   },
   methods: {
-    requestForm(){
-      this.$emit('form-requested')
+    requestForm() {
+      this.$emit('form-requested');
     },
-    sortUsers(sortingCriteria){
-    this.users = this.users.sort(function(a, b){
-        if(a[sortingCriteria] < b[sortingCriteria]) { return -1; }
-        if(a[sortingCriteria] > b[sortingCriteria]) { return 1; }
+    sortUsers(sortingCriteria) {
+      this.users = this.users.sort((a, b) => {
+        if (a[sortingCriteria] < b[sortingCriteria]) { return -1; }
+        if (a[sortingCriteria] > b[sortingCriteria]) { return 1; }
         return 0;
-      })
-    }
-  }
+      });
+    },
+  },
 };
 </script>
 

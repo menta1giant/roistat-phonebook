@@ -23,34 +23,33 @@
 export default {
   name: 'UserForm',
   props: {
-        users: {
-          type: Array,
-          required: true,
-        },
-      },
-  data() {
-      return {
-        name: '',
-        phoneNumber: '',
-        superior: '',
-      };
+    users: {
+      type: Array,
+      required: true,
     },
+  },
+  data() {
+    return {
+      name: '',
+      phoneNumber: '',
+      superior: '',
+    };
+  },
   methods: {
     onSubmit() {
-        if (this.name === '' || this.phoneNumber === '') {
-            alert('Пожалуйста, заполните все поля.');
-            return;
-        }
-        const userContacts = {
-            name: this.name,
-            phoneNumber: this.phoneNumber,
-            superior: this.superior,
+      if (this.name === '' || this.phoneNumber === '') {
+        return;
+      }
+      const userContacts = {
+        name: this.name,
+        phoneNumber: this.phoneNumber,
+        superior: this.superior,
 
-        };
-        this.$emit('form-submitted', userContacts);
-        this.name = '';
-        this.phoneNumber = '';
-        this.superior = '';
+      };
+      this.$emit('form-submitted', userContacts);
+      this.name = '';
+      this.phoneNumber = '';
+      this.superior = '';
     },
   },
 };
